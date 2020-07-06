@@ -1,3 +1,3 @@
 # Algorithm
 
-### Baekjoon  Programmers  SW Expert Academy Study
+### Baekjoon / Programmers / SW Expert Academy Study
