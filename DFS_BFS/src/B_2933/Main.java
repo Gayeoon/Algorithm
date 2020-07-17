@@ -16,7 +16,7 @@ class Point implements Comparable<Point> {
 	public int compareTo(Point p) {
 		if (this.row > p.row)
 			return -1;
-		else if(this.row == p.row)
+		else if (this.row == p.row)
 			return 0;
 		else
 			return 1;
@@ -51,15 +51,8 @@ public class Main {
 			int bar = n - input.nextInt();
 			shoot(bar, f);
 			f = !f;
-			
-//			System.out.println("\n------------"+bar+"------------\n");
-//			for (int a = 0; a < n; a++) {
-//				for (int b = 0; b < m; b++)
-//					System.out.print(arr[a][b]);
-//				System.out.println();
-//			}
 		}
-		
+
 		for (int a = 0; a < n; a++) {
 			for (int b = 0; b < m; b++)
 				System.out.print(arr[a][b]);
@@ -90,7 +83,7 @@ public class Main {
 			for (int i = m - 1; i >= 0; i--) {
 				if (arr[bar][i] == 'x') {
 					arr[bar][i] = '.';
-					
+
 					for (int k = 0; k < 4; k++) {
 						int nr = bar + Dr[k];
 						int nc = i + Dc[k];
@@ -101,7 +94,7 @@ public class Main {
 							continue;
 						bsf(nr, nc);
 					}
-										
+
 					break;
 				}
 			}
@@ -136,34 +129,34 @@ public class Main {
 
 			}
 		}
-		
+
 		boolean flag = true;
 		while (flag) {
 			list.sort(null);
 
 			char temp[][] = new char[n][m];
-			for(int i=0; i<n; i++)
-				for(int j=0; j<m; j++)
+			for (int i = 0; i < n; i++)
+				for (int j = 0; j < m; j++)
 					temp[i][j] = arr[i][j];
-			
+
 			LinkedList<Point> newlist = new LinkedList<>();
 			int cnt = 0;
 			for (Point p : list) {
-				if (p.row == n - 1 || arr[p.row+1][p.col] == 'x') {
+				if (p.row == n - 1 || arr[p.row + 1][p.col] == 'x') {
 					flag = false;
-					if(cnt != 0) {
-						for(int i=0; i<n; i++)
-							for(int j=0; j<m; j++)
+					if (cnt != 0) {
+						for (int i = 0; i < n; i++)
+							for (int j = 0; j < m; j++)
 								arr[i][j] = temp[i][j];
 					}
 					break;
 				}
 				arr[p.row + 1][p.col] = arr[p.row][p.col];
 				arr[p.row][p.col] = '.';
-				newlist.add(new Point(p.row+1, p.col));
+				newlist.add(new Point(p.row + 1, p.col));
 				cnt++;
 			}
-			
+
 			list = newlist;
 		}
 	}
