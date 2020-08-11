@@ -9,7 +9,7 @@ public class Main {
 		// TODO Auto-generated method stub
 		Scanner input = new Scanner(System.in);
 
-		int n = input.nextInt();
+		String n = input.next();
 		
 		if(solve(n)) {
 			System.out.println(cnt);
@@ -20,20 +20,19 @@ public class Main {
 		}
 	}
 
-	static boolean solve(int n) {
-		if ((int) Math.log10(n) == 0) {
-			if (n == 3 || n == 6 || n == 9)
+	static boolean solve(String num) {
+		if (num.length() == 1) {
+			if (Integer.parseInt(num) % 3 == 0)
 				return true;
 			else
 				return false;
 		}
-		int sum = 0;
-		for (int i = (int) Math.log10(n); i >= 0; i--) {
-			sum += (n / Math.pow(10, i));
-			n %= Math.pow(10, i);
+		long sum = 0;
+		for (int i = 0; i < num.length(); i++) {
+			sum += num.charAt(i) - 48;
 		}
 
 		cnt++;
-		return solve(sum);
+		return solve(sum+"");
 	}
 }
