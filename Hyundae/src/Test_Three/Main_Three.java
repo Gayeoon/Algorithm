@@ -6,7 +6,6 @@ public class Main_Three {
 	static int dp[][];
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		dp = new int[4][4];
 		int[][] board = { { 3, 2, 3, 2 }, { 2, 1, 1, 2 }, { 1, 1, 2, 1 }, { 4, 1, 1, 1 } };
 		int answer = 0;
