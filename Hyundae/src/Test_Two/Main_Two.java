@@ -12,7 +12,7 @@ public class Main_Two {
 		// TODO Auto-generated method stub
 
 		String[] orders = {"alex pizza pasta", "alex pizza pizza", "alex noodle", "bob pasta", "bob noodle sandwich pasta", "bob steak noodle"};
-		HashMap<String, HashMap> hash = new HashMap<>();
+		HashMap<String, HashMap<String, Boolean>> hash = new HashMap<>();
 		HashMap<String, Integer> user = new HashMap<>();
 
 		for (int i = 0; i < orders.length; i++) {
