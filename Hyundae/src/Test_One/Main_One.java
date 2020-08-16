@@ -3,7 +3,6 @@ package Test_One;
 public class Main_One {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		int prices[] = {1, 10, 5, 11, 7};
 		int[] stock = new int[2];
 		int result = solve(prices, 0, stock, 0, 0, 0);
