@@ -2,23 +2,31 @@ package B_2411;
 
 import java.util.Scanner;
 import java.util.LinkedList;
-import java.util.Queue;
 
-class Point {
-	int row, col, item;
+class Point implements Comparable<Point> {
+	int row, col;
 
-	Point(int row, int col, int item) {
+	Point(int row, int col) {
 		this.row = row;
 		this.col = col;
-		this.item = item;
 	}
 
-	void setItem(int item) {
-		this.item = item;
+	@Override
+	public int compareTo(Point p) {
+		if (this.row < p.row && this.col < p.col)
+			return -1;
+		else if (this.row == p.row && this.col < p.col)
+			return -1;
+		else if (this.row < p.row && this.col == p.col)
+			return -1;
+		else
+			return 1;
 	}
 }
 
 public class Main {
+	static int[][] arr;
+	static int[][] dp;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -27,57 +35,54 @@ public class Main {
 		int n = input.nextInt();
 		int m = input.nextInt();
 
-		int[][] arr = new int[n][m];
+		arr = new int[n + 1][m + 1];
+		dp = new int[n + 1][m + 1];
 
 		int item = input.nextInt();
 		int obs = input.nextInt();
-
-		int Dr[] = { 0, -1 };
-		int Dc[] = { 1, 0 };
+		LinkedList<Point> list = new LinkedList<>();
 
 		for (int i = 0; i < item; i++) {
-			arr[n-input.nextInt()][input.nextInt()-1] = 1;
+			int r = input.nextInt();
+			int c = input.nextInt();
+
+			arr[r][c] = 1;
+			list.add(new Point(r, c));
 		}
 
 		for (int i = 0; i < obs; i++) {
-			arr[n-input.nextInt()][input.nextInt()-1] = 2;
+			arr[input.nextInt()][input.nextInt()] = 2;
 		}
 
-		Queue<Point> queue = new LinkedList<>();
+		int row = 1, col = 1;
+		list.sort(null);
 
-		queue.add(new Point(n-1, 0, 0));
+		if(arr[1][1] != 2)
+			dp[1][1] = 1;
+		
+		for (int i = 0; i < list.size(); i++) {
+			move(row, col, list.get(i).row, list.get(i).col);
+			row = list.get(i).row;
+			col = list.get(i).col;
 
-		int cnt = 0;
-
-		while (true) {
-			if (queue.isEmpty())
-				break;
-
-			Point tmp = queue.poll();
-
-			if (arr[tmp.row][tmp.col] == 1)
-				tmp.setItem(tmp.item + 1);
-
-			if (tmp.row == 0 && tmp.col == m - 1) {
-				if (tmp.item == item)
-					cnt++;
-				continue;
-			}
-			
-			for(int i=0; i<2; i++) {
-				int nr = tmp.row+Dr[i];
-				int nc = tmp.col+Dc[i];
-				
-				if(nr < 0 || nc >= m) continue;
-				
-				if(arr[nr][nc] == 2) continue;
-				
-				queue.add(new Point(nr, nc, tmp.item));
-			}
 		}
 		
-		System.out.println(cnt);
+		move(row, col, n, m);
+
+		System.out.println(dp[n][m]);
 
 	}
 
+	static void move(int s_row, int s_col, int e_row, int e_col) {
+		for (int i = s_row; i <= e_row; i++) {
+			for (int j = s_col; j <= e_col; j++) {
+				if (arr[i][j] == 2) {
+					dp[i][j] = 0;
+					continue;
+				}
+				if(i == 1 && j == 1) continue;
+				dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+			}
+		}
+	}
 }
