@@ -15,9 +15,8 @@ public class Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
 		String road = "001100";
-		int n = 2;
+		int n = 5;
 		int answer = -1;
 		damage = new Road[road.length() + 1];
 		int cnt = 0;
@@ -31,14 +30,15 @@ public class Main {
 				cnt++;
 			}
 		}
-		if(idx <= n)
+		if (idx <= n) {
+			// return road.length();
 			System.out.println(road.length());
-		
-		damage[idx] = new Road(cnt, road.length());
-		
-		idx++;
-		answer = solve(0, idx, n);
-		System.out.println(answer);
+		} else {
+			damage[idx++] = new Road(cnt, road.length());
+			answer = solve(0, idx, n);
+			// return answer;
+			System.out.println(answer);
+		}
 	}
 
 	static int solve(int start, int idx, int n) {
