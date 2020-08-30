@@ -3,63 +3,57 @@ package Test4;
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.TreeMap;
 
 public class Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		String[][] snapshots = { { "ACCOUNT1", "100" }, { "ACCOUNT2", "150" } };
+		String[][] transactions = { { "1", "SAVE", "ACCOUNT2", "100" }, { "2", "WITHDRAW", "ACCOUNT1", "50" },
+				{ "1", "SAVE", "ACCOUNT2", "100" }, { "4", "SAVE", "ACCOUNT3", "500" },
+				{ "3", "WITHDRAW", "ACCOUNT2", "30" } };
 
-		String[][] dataSource = { { "a", "ddd" }, { "bb" }, { "cc" } };
-		String[] tags = { "t" };
-		HashMap<String, ArrayList<String>> hash = new HashMap<>();
-		HashMap<String, Integer> answer = new HashMap<>();
-
-		for (int i = 0; i < dataSource.length; i++) {
-			ArrayList<String> list = new ArrayList<>();
-			for (int j = 1; j < dataSource[i].length; j++) {
-				list.add(dataSource[i][j]);
-			}
-			hash.put(dataSource[i][0], list);
+		HashMap<String, Integer> snap = new HashMap<>();
+		ArrayList<String> list = new ArrayList<>();
+		for (int i = 0; i < snapshots.length; i++) {
+			snap.put(snapshots[i][0], Integer.parseInt(snapshots[i][1]));
 		}
-
-		for (int i = 0; i < tags.length; i++) {
-			Iterator<String> it = hash.keySet().iterator();
-
-			while (it.hasNext()) {
-				String key = it.next();
-				if (hash.get(key).contains(tags[i])) {
-					if (answer.containsKey(key)) {
-						int temp = answer.get(key);
-						answer.put(key, temp + 1);
-					} else
-						answer.put(key, 1);
+		for (int i = 0; i < transactions.length; i++) {
+			if (list.contains(transactions[i][0]))
+				continue;
+			list.add(transactions[i][0]);
+			if (transactions[i][1].equals("SAVE")) {
+				if (snap.containsKey(transactions[i][2])) {
+					int t = snap.get(transactions[i][2]);
+					snap.put(transactions[i][2], t + Integer.parseInt(transactions[i][3]));
+				} else {
+					snap.put(transactions[i][2], Integer.parseInt(transactions[i][3]));
+				}
+			} else {
+				if (snap.containsKey(transactions[i][2])) {
+					int t = snap.get(transactions[i][2]);
+					snap.put(transactions[i][2], t - Integer.parseInt(transactions[i][3]));
+				} else {
+					snap.put(transactions[i][2], -Integer.parseInt(transactions[i][3]));
 				}
 			}
 		}
 
-		ArrayList<String> keySetList = new ArrayList<String>(answer.keySet());
+		String[][] answer = new String[snap.size()][2];
+		TreeMap<String, Integer> tm = new TreeMap<>(snap);
+		Iterator<String> iterator = tm.keySet().iterator();
 
-		Collections.sort(keySetList, new Comparator<String>() {
-
-			public int compare(String a, String b) {
-				if (answer.get(a) > answer.get(b))
-					return -1;
-				else if (answer.get(a) == answer.get(b)) {
-					return a.compareTo(b);
-				} else
-					return 1;
-			}
-		});
-
-		String[] ans = new String[answer.size()];
 		int idx = 0;
-		for (String key : keySetList) {
-			ans[idx] = key;
-
-			System.out.println(ans[idx]);
+		while (iterator.hasNext()) {
+			String key = iterator.next();
+			answer[idx][0] = key;
+			answer[idx][1] = tm.get(key) + "";
 			idx++;
 		}
+
+		//return answer;
+		for(int i=0; i<answer.length; i++)
+			System.out.println(answer[i][0]+", "+answer[i][1]);
 	}
 }
