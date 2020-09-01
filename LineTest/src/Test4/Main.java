@@ -8,7 +8,6 @@ import java.util.TreeMap;
 public class Main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		String[][] snapshots = { { "ACCOUNT1", "100" }, { "ACCOUNT2", "150" } };
 		String[][] transactions = { { "1", "SAVE", "ACCOUNT2", "100" }, { "2", "WITHDRAW", "ACCOUNT1", "50" },
 				{ "1", "SAVE", "ACCOUNT2", "100" }, { "4", "SAVE", "ACCOUNT3", "500" },
