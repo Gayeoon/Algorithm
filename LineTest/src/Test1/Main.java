@@ -26,6 +26,7 @@ public class Main {
 					// return -1;
 					System.out.println(-1);
 				}
+				
 			} else if (temp == '}') {
 				for (int l = 0; l < list.size(); l++) {
 					if (list.get(l) == '{') {
