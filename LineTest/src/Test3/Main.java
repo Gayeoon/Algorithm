@@ -14,7 +14,6 @@ public class Main {
 	static Road[] damage;
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		String road = "001100";
 		int n = 5;
 		int answer = -1;
