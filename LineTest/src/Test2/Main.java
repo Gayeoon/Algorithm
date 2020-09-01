@@ -3,7 +3,6 @@ package Test2;
 public class Main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		String answer_sheet = "53241";
 		String[] sheets = { "53241", "42133", "53241", "14354"};
 		int answer = 0;
