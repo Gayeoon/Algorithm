@@ -45,45 +45,30 @@ public class Main {
 			String tmp[] = input.nextLine().split(",");
 			String str1[] = tmp[0].split(" ");
 			String str2[] = tmp[1].split(" ");
+			int win, lose;
 			if(tmp[2].equals("1")) {
-				int lose = find(hash.get(str2[2]));
-				int win = find(hash.get(str1[2]));
-				if(win == hash.get(str2[2])) {
-					kingdom[hash.get(str2[2])] = hash.get(str2[2]);
-					kingdom[hash.get(str1[2])] = hash.get(str2[2]);
-					
-					for(int k=0; k<K; k++) {
-						if(kingdom[k] == hash.get(str2[2]))
-							kingdom[k] = hash.get(str1[2]);
-					}
-				}else if(hash.get(str1[2]) == lose) {
-					continue;
-				}else {
-					for(int k=0; k<K; k++) {
-						if(kingdom[k] == lose)
-							kingdom[k] = win;
-					}
-				}
+				win = hash.get(str1[2]);
+				lose = hash.get(str2[2]);
 			}
 			else{
-				int win = find(hash.get(str2[2]));
-				int lose = find(hash.get(str1[2]));
-				if(win == hash.get(str1[2])) {
-					kingdom[hash.get(str2[2])] = hash.get(str2[2]);
-					kingdom[hash.get(str1[2])] = hash.get(str2[2]);
-					
-					for(int k=0; k<K; k++) {
-						if(kingdom[k] == hash.get(str1[2]))
-							kingdom[k] = hash.get(str2[2]);
-					}
-				}else if(hash.get(str2[2]) == lose) {
-					continue;
-				}else {
-					for(int k=0; k<K; k++) {
-						if(kingdom[k] == lose)
-							kingdom[k] = win;
-					}
-				}
+				win = hash.get(str2[2]);
+				lose = hash.get(str1[2]);
+			}
+
+			if(kingdom[win] == lose)
+				kingdom[win] = lose;
+			
+			if(kingdom[win] != win && kingdom[win] != lose)
+				win = kingdom[win];
+			if(kingdom[lose] != lose && kingdom[lose] != kingdom[win])
+				lose = kingdom[lose];
+
+
+			kingdom[lose] = win;
+			
+			for(int k=0; k<K; k++) {
+				if(kingdom[k] == lose)
+					kingdom[k]= win;
 			}
 		}
 		
@@ -100,11 +85,6 @@ public class Main {
 		System.out.println(cnt);
 		System.out.print(sb);
 	}
-	
-	static int find(int num) {
-		if(num == kingdom[num])
-			return num;
-		return kingdom[num] = find(kingdom[num]);
-	}
 
 }
+
