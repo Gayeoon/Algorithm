@@ -70,7 +70,6 @@ public class Solution {
 						break;
 					}
 				}
-
 				if (reception.peek().time <= time) {
 					if (used[reception.peek().idx]) {
 						rep_waiting.add(new Counter(reception.peek().idx, time, 0, reception.peek().person));
