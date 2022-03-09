@@ -28,7 +28,7 @@ public class Main {
 	static int[][] arr;
 	static boolean[][] visit;
 	static int[] Dr = { -1, -1, -1, 0, 0, 1, 1, 1 };
-	static int[] Dc = { -1, 0, 1, -1, 1, -1, 0, 1};
+	static int[] Dc = { -1, 0, 1, -1, 1, -1, 0, 1 };
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
